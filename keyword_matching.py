@@ -11,7 +11,10 @@ jd_keywords = {
     "teamwork": 1,
     "computer science":1
 }
-with open('resume.json', 'r') as file:
+# with open('ds_resume.json', 'r') as file:
+#     resume = json.load(file)
+
+with open('st_resume.json', 'r') as file:
     resume = json.load(file)
 
 matching_score = 0
@@ -21,11 +24,11 @@ technical_skills = resume["skills"]["technical"]
 for skill, expertise in technical_skills.items():
     if skill.lower() in jd_keywords:
         skill_weight = jd_keywords[skill.lower()]
-        if expertise == "Advanced" and skill_weight>=3:
+        if expertise == "Advanced" and skill_weight<=3:
             matching_score += skill_weight 
-        elif expertise == "Intermediate" and skill_weight>=2:
+        elif expertise == "Intermediate" and skill_weight<=2:
             matching_score += skill_weight
-        if expertise == "Beginner" and skill_weight>=1:
+        if expertise == "Beginner" and skill_weight<=1:
             matching_score += skill_weight 
 
 soft_skills = set(resume["skills"]["soft"])

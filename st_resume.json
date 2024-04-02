@@ -1,0 +1,48 @@
+{
+    "name": "John Smith",
+    "education": [
+      {
+        "degree": "Bachelor of Technology in Computer Science",
+        "university": "Tech University",
+        "graduation_year": "2021",
+        "gpa": "3.6/4.0"
+      }
+    ],
+    "skills": {
+      "technical": {
+        "Java": "Advanced",
+        "Selenium": "Advanced",
+        "TestNG": "Intermediate",
+        "JUnit": "Intermediate",
+        "SQL": "Intermediate"
+      },
+      "soft": [
+        "Problem-solving",
+        "Attention to detail",
+        "Communication skills",
+        "Teamwork",
+        "Time management"
+      ]
+    },
+    "certifications": [
+      {
+        "name": "Certified Selenium Tester",
+        "issuer": "Software Testing Institute",
+        "year": "2021"
+      }
+    ],
+    "projects": [
+      {
+        "title": "Automated Test Suite Development",
+        "description": "Developed an automated test suite for web applications using Selenium WebDriver and Java. Implemented test scripts for functional testing and regression testing. Achieved 90% test coverage."
+      },
+      {
+        "title": "Integration Testing for E-commerce Platform",
+        "description": "Conducted integration testing for an e-commerce platform using Selenium and TestNG framework. Identified and reported bugs to the development team for resolution. Ensured the reliability and stability of the application."
+      },
+      {
+        "title": "Cross-browser Compatibility Testing",
+        "description": "Performed cross-browser compatibility testing for a web application using Selenium Grid. Tested application functionality across multiple browsers and platforms to ensure consistent user experience."
+      }
+    ]
+}
