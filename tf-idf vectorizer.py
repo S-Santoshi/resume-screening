@@ -2,23 +2,22 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 
-
-jd_keywords = ["java", "selenium", "python", "web development", "test automation", "software testing", "problem-solving", "teamwork","computer science"]
-with open('resume.json', 'r') as file:
+jd_keywords = ["java", "advanced selenium", "advanced python", "web development", "test automation", "software testing", "problem-solving", "teamwork","computer science"]
+with open('ds_resume.json', 'r') as file:
     resume = json.load(file)
-def get_all_values(json_data):
+def get_values(json_data):
     values = []
     if isinstance(json_data, dict):
         for value in json_data.values():
-            values.extend(get_all_values(value))
+            values.extend(get_values(value))
     elif isinstance(json_data, list):
         for item in json_data:
-            values.extend(get_all_values(item))
+            values.extend(get_values(item))
     else:
         values.append(json_data)
 
     return values
-resume_text = get_all_values(resume)
+resume_text = get_values(resume)
 resume_text=" ".join(resume_text)
 tfidf_vectorizer = TfidfVectorizer()
 tfidf_matrix = tfidf_vectorizer.fit_transform([resume_text])

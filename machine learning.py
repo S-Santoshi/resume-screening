@@ -44,7 +44,6 @@ df['encoded_cat'] = label.fit_transform(df['Category'])
 
 text = df['cleaned_text'].values
 target = df['encoded_cat'].values
-print(df)
 word_vectorizer = TfidfVectorizer(
     sublinear_tf=True,
     stop_words='english',
@@ -60,4 +59,9 @@ y_pred = model.predict(X_test)
 
 print("Training Accuracy   :-", (model.score(X_train, y_train)*100) ,"%")
 print("Validation Accuracy :-", (model.score(X_test, y_test)*100),"%")
+
+# w_f=word_vectorizer.transform([df['cleaned_text'][20]])
+# ans_pred=model.predict(w_f)
+# ans=label.inverse_transform([ans_pred])
+# print(ans)
 
