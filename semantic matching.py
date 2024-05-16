@@ -60,9 +60,12 @@ def get_bert_embedding(text):
     return embedding
 
 def compute_relevance_score(job_description, resume_text):
-    job_description_embedding= get_bert_embedding(job_description)
-    resume_embedding= get_bert_embedding(resume_text)
-    cosine_sim = cosine_similarity(job_description_embedding, resume_embedding)
+    # job_description_embedding= get_bert_embedding(job_description)
+    word1=get_bert_embedding("Bachelors in Computer Science")
+    # resume_embedding= get_bert_embedding(resume_text)
+    word2=get_bert_embedding("Bachelors in Commerce")
+    # cosine_sim = cosine_similarity(job_description_embedding, resume_embedding)
+    cosine_sim = cosine_similarity(word1, word2)
     relevance_score = np.mean(cosine_sim)
     return relevance_score
 
