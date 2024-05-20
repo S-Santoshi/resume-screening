@@ -1,5 +1,86 @@
 .App {
   text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+}
+
+body{
+  background: url('https://static.vecteezy.com/system/resources/thumbnails/004/709/149/small/grey-white-abstract-background-geometry-shine-and-layer-element-for-presentation-design-suit-for-business-corporate-institution-party-festive-seminar-and-talks-vector.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+
+.App h1{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.pdf{
+  display: flex;
+  margin-left: 13vw;
+  margin-top: 2vh;
+  height: 80vh;
+  width: 40vw;
+}
+.navbar{
+  max-width: 800px;
+  margin: 10px auto;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.steps{
+  margin-top: 12vh;
+  width: 20%;
+}
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo{
+  height: 10%;
+  width: 10%;
+}
+
+.form-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  width: 68%;
+}
+
+.uploads{
+  display: flex;
+  margin: 20px;
+}
+
+.uploads input{
+  margin-left: 5px;
+}
+
+.cloudlogo{
+  width: 8%;
+  margin-right: 5px;
+  /* height: 5%; */
+}
+
+.btn{
+  width: 100px;
+  height: 36px;
+  font-size: 20px;
+  font-family: 'Roboto Condensed', sans-serif;
+  border-radius: 10px;
+  border-width: 0;
+  background-color: #181818;
+  color: white;
+  outline: 0;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .App-logo {
