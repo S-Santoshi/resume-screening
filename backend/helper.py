@@ -12,11 +12,11 @@ GOOGLE_API_KEY='AIzaSyBIcnlFK8DcWQFFDm_Axw5OevHwmKxK2VM'
 loaded_model = Doc2Vec.load("doc2vec_model")
 nlp = spacy.load("en_core_web_md")
 
-def unzip_resumes():
+def unzip_resumes(name):
     if os.path.exists("resumes"):
         shutil.rmtree("resumes")
     os.makedirs("resumes", exist_ok=True)
-    with zipfile.ZipFile("resumezip.zip", 'r') as zip_ref:
+    with zipfile.ZipFile(name, 'r') as zip_ref:
         zip_ref.extractall("resumes")
         
 def get_text(filename):
@@ -51,6 +51,6 @@ def get_score(res,jd):
 def get_question(res_text):
     genai.configure(api_key=GOOGLE_API_KEY)
     model = genai.GenerativeModel('gemini-pro')
-    prompt=f"The following is a resume of a candidate \n {res_text} \n. You are an HR. Generate 5 follow-up questions based on this resume. Rephrase the questions and make them shorter. Do not add any text effects or aestricks in the response"
+    prompt=f"The following is a resume of a candidate \n {res_text} \n. You are an HR. Generate 5 follow-up questions based on this resume. Rephrase the questions and make them shorter. Add an enter after each question Do not add any text effects or aestricks in the response"
     response = model.generate_content(prompt)
     return response.text
