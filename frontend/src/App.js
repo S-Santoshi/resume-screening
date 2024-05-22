@@ -3,11 +3,11 @@ import './App.css';
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 // import { Document, Page } from 'react-pdf-js';
-import { Worker, Viewer } from '@react-pdf-viewer/core';
+import { Worker, Viewer, classNames } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-
+// import PDFViewer from 'pdf-viewer-reactjs'
 
 function App() {
   const [file1, setFile1] = useState(null);
@@ -41,8 +41,16 @@ function App() {
       setFile2(e.target.files[0]);
   };
 
+  const renderQuestions = (questions) => {
+    return questions.split('\n').map((question, index) => (
+      <p key={index}>{question}</p>
+    ));
+  };
+
   const handleSubmit = async (e) => {
+
     e.preventDefault();
+    setResponseData(null);
     console.log(file1)
     const formData = new FormData();
     formData.append('pdf', file1);
@@ -52,15 +60,15 @@ function App() {
   }
     try {
       
-        // const response = await axios.post('http://localhost:5000/upload_file', formData, {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //         'Access-Control-Allow-Origin': '*'
-        //     },
-        // });
-        // console.log('Files successfully uploaded', response.data);
-        // setResponseData(response.data);
-        setResponseData([{'name': 'resume52.pdf', 'questions': '1. Can you elaborate on your experience using Celonis for cost optimization?\n2. How did you utilize UiPath bots to enhance operational efficiency?\n3. Describe your role in implementing IBM Watson for sentiment analysis.\n4. Can you provide details on the ML dashboards you developed for RPA monitoring?\n5. How did you leverage ABBYY FlexiCapture to improve fraud detection capabilities?', 'score': 91.75, 'path': 'resumes/resume52.pdf'}, {'name': 'resume54.pdf', 'questions': '1. Describe your experience in identifying cost-saving opportunities.\n2. Can you provide an example of how you improved a business process?\n3. How do you manage relationships with clients and stakeholders?\n4. How do you stay up-to-date on industry trends and best practices?\n5. Tell me about your experience leading a team of business analysts.', 'score': 90.25, 'path': 'resumes/resume54.pdf'}, {'name': 'resume55.pdf', 'questions': '1. Describe your experience using JDA software for report customization.\n\n2. How did you integrate SAP ERP into your supply chain management strategy?\n\n3. Explain the impact of Tableau on your inventory analysis.\n\n4. What specific improvements did you implement in Fishbowl Inventory?\n\n5. How did you utilize Google Workspace to streamline supplier communication?', 'score': 89.35, 'path': 'resumes/resume55.pdf'}])
+        const response = await axios.post('http://localhost:5000/upload_file', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Access-Control-Allow-Origin': '*'
+            },
+        });
+        console.log('Files successfully uploaded', response.data);
+        setResponseData(response.data);
+        
         // console.log(pdfUrl)
         // if(pdfUrl!==""){
         //     setViewPdf(pdfUrl)
@@ -71,11 +79,18 @@ function App() {
     } catch (error) {
         console.error('Error uploading files', error);
     }
+    
+};
+
+const openPdfInNewTab = (pdfPath) => {
+    // Open the PDF file in a new tab
+    let pdfu="home/admin123/Documents/python/resume-screening/"+pdfPath
+    window.open(pdfu, '_blank');
 };
   return (
     <div className="App">
         <div className='navbar'>
-            <img src="https://img.freepik.com/premium-photo/there-is-3d-image-cube-with-lot-cubes-generative-ai_900321-47544.jpg" alt="" className='logo'/>
+            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR3z5k3t7y2-0hG7e_AWfv5zR11C5UNNREL7iZwK_8rxwWNKOZ4" alt="" className='logo'/>
         <h1>Resume Match</h1>
         </div>
         <hr />
@@ -84,64 +99,110 @@ function App() {
             <div className='steps'>
             Revolutionize your hiring process! Upload job description & candidate Resumes. Get instant scores!
             <br />
+            <br />
             Three Easy Steps:
             <ol>
                 <li>Upload Job Description</li>
                 <li>Upload Candidate Resumes (in a .zip file)</li>
                 <li>Click "Submit' for Instant Scores!</li>
             </ol>
-                Simplify your recruitement journey today
+                <b>Simplify your recruitement journey today </b>
             </div>
         <form onSubmit={handleSubmit} className='form-container'>   
         <div className="uploads">
         <div>
+            <div>
             <img src="https://www.svgrepo.com/show/73906/cloud-upload.svg" alt="" className='cloudlogo'/>
-            <label htmlFor="">Upload JD</label>
+            <br/>
+            Upload Job description PDF to get started 
+            </div>
+            {/* <label htmlFor="">Upload JD</label> */}
+            <br/>
             <input type="file" id="pdf" accept=".pdf" onChange={handleFile1Change} />
         </div>
         <div>
+            <div>
             <img src="https://www.svgrepo.com/show/73906/cloud-upload.svg" alt="" className='cloudlogo'/>
-            <label htmlFor="">Upload Resume Zip</label>
-            <input type="file" id="file2" onChange={handleFile2Change} />
+            <br/>
+            Upload Resume Zip file to get scores 
+            </div>
+            <br/>
+            {/* <label htmlFor="">Upload Resume Zip</label> */}
+            <input type="file" id="zip" onChange={handleFile2Change} />
         </div>
         </div>
         <div>
         <button type="submit" className='btn'>Submit</button>
         </div>
+        <div className='output'>
+            <div classname='jd_viewer'>
             {viewPdf ? (
                 <div className='pdf'>
-                    <Worker workerUrl={`https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js`}>
+                    <Worker workerUrl={`https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js`}>
                         <Viewer fileUrl={viewPdf} plugins={[defaultLayoutPlugin]} />
                     </Worker>
                 </div>
             ) : (
-                <p>No PDF to display</p>
+                <p></p>
             )}
+            </div>
+            <div className='result'>
             {responseData && responseData.length > 0 && (
                 <div>
-                    <h2>Response Data</h2>
+                    <b>Results !</b>
+                    <br/>
+                    <br/>
                     <table>
-                        <thead>
+                        {/* <thead>
                             <tr>
                                 <th>Filename</th>
                                 <th>Score</th>
                                 <th>Path</th>
                                 <th>Question</th>
                             </tr>
-                        </thead>
+                        </thead> */}
                         <tbody>
                             {responseData.map((row, index) => (
-                                <tr key={index}>
-                                    <td>{row.name}</td>
-                                    <td>{row.score}</td>
-                                    <td>{row.path}</td>
-                                    <td>{row.questions}</td>
+                                <div className='result_row'>
+                                <details className='dropdown'>
+                                    <summary>
+                                        
+                                        <tr key={index}>
+                                        {/* <td className='cell'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAMAAABC4vDmAAAAJ1BMVEUBAAL///8AAAKWlpZwcHAVFBWko6TDw8T7/PuMjIyHhofq6ekJCAkEgSW/AAAA6UlEQVR4nO3cORLCMAxAUaPsy/3PC8zQBSYhhUeE53RO8/3Uq9y2Z2i7KFVOdO3wJqBsbsYpIsqjKj58313v/IiYxgNRc1RiemHFvB+1rHHu5eekHlHrshvV14V6UvW7Uc3Zl5+VKtEciap8jkWRIkWKFClSpEiRIlVHKmWU8ZEiRYoUKVKkSJEiRYrUtaVSRhkfKVKkSJEiRYoUKVKkflMqZZTxkSJFihQpUqRIkSJFitS1pVJGGR8pUqRIkSJFihQpUqRIXVsqZZTxkSJFihQpUqRIkfpXqZRrDlMuhEy5OjPnktEE61jvK+s2t5sV6HEAAAAASUVORK5CYII=" alt="" className='blackrect'/></td> */}
+                                        <td className='cellname'>{row.name}</td>
+                                        
+                                        <td className='cellscore'>Score: {row.score}%</td>
+                                        {/* <td className='cellpath'>{row.path}</td> */}
+                                    {/* <td className='cellpath'> <img
+                                        src="https://www.freeiconspng.com/thumbs/pdf-icon-png/pdf-icon-png-pdf-zum-download-2.png"
+                                        alt="PDF Image"
+                                        onClick={() => openPdfInNewTab(row.path)}
+                                        style={{ cursor: 'pointer' }}
+                                        className="pdf_image"
+                                    /></td> */}
+                                        {/* <td className='cellpath'>
+                                        <a href={row.path} target="_blank">
+                                        <img src="https://www.freeiconspng.com/thumbs/pdf-icon-png/pdf-icon-png-pdf-zum-download-2.png" className="pdf_image"/> 
+                                        
+                                        </a></td> */}
+
+                                    {/* <td>{row.questions}</td> */}
                                 </tr>
+                                </summary>
+                                <p>
+                                    <b>Questions: </b>
+                                </p>
+                                    {renderQuestions(row.questions)}
+                                    
+                                </details>
+                                </div>
                             ))}
                         </tbody>
                     </table>
                 </div>
             )}
+            </div>
+            </div>
         </form>
         </div>
     </div>  

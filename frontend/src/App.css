@@ -5,22 +5,81 @@
 }
 
 body{
+  
   background: url('https://static.vecteezy.com/system/resources/thumbnails/004/709/149/small/grey-white-abstract-background-geometry-shine-and-layer-element-for-presentation-design-suit-for-business-corporate-institution-party-festive-seminar-and-talks-vector.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  
 }
 
 .App h1{
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 42px;
 }
 
 .pdf{
   display: flex;
   margin-left: 13vw;
   margin-top: 2vh;
-  height: 80vh;
-  width: 40vw;
+  height: 60vh;
+  width: 35vw;
+  margin: 20px;
+}
+.react-pdf-viewer {
+  width: 100%; /* Set the width to 100% or any other desired value */
+  height: 400px; 
+}
+.output {
+  display: flex; /* Use flexbox */
+}
+
+.jd_viewer {
+  flex: 1; /* Each inner div takes up equal space */
+  border: 1px solid black; /* Optional: Add border for visualization */
+}
+
+.result_row{
+  margin: 15px;
+  /* width: 400px; */
+  padding: 10px;
+  border:1px  solid black;
+  border-radius: 20px;    
+  background-color:#D3D3D3;
+  cursor: pointer; 
+}
+.blackrect{
+  height:30px;
+  width: 20px;
+}
+.cell{
+  padding: 30px;
+  align-items: center; 
+  /* border:5px  solid black; */
+}
+.cellname{
+  padding: 0px 20px 20px 20px;
+  align-items: center; 
+  /* border:5px  solid black; */
+}
+.cellscore{
+  padding: 0px 20px;
+  align-items: center; 
+  width:400px;
+  /* border:5px  solid black; */
+}
+.cells{
+  margin-left: 10px;
+  padding-left: 10px;
+  align-items: center; 
+  /* border:5px  solid black; */
+}
+.cellpath{
+  padding: 5px 20px;
+  align-items: center; 
+  /* border:5px  solid black; */
+}
+.pdf_image{
+  height: 40px;
+  width: 30px;
 }
 .navbar{
   max-width: 800px;
@@ -43,8 +102,8 @@ body{
 }
 
 .logo{
-  height: 10%;
-  width: 10%;
+  height: 15%;
+  width: 15%;
 }
 
 .form-container{
@@ -53,7 +112,13 @@ body{
   justify-content: right;
   width: 68%;
 }
+.dropdown summary::-webkit-details-marker {
+  display: none;
+}
 
+summary{
+  list-style-type: none;
+}
 .uploads{
   display: flex;
   margin: 20px;
@@ -64,9 +129,15 @@ body{
 }
 
 .cloudlogo{
-  width: 8%;
+  width: 20%;
   margin-right: 5px;
   /* height: 5%; */
+}
+#pdf {
+  font-size: 16px; /* Adjust the value as needed */
+}
+#zip {
+  font-size: 16px; /* Adjust the value as needed */
 }
 
 .btn{
@@ -94,7 +165,7 @@ body{
   }
 }
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -103,11 +174,11 @@ body{
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
-.App-link {
+/* .App-link {
   color: #61dafb;
-}
+} */
 
 @keyframes App-logo-spin {
   from {
